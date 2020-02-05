@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-import { View, TouchableOpacity, Text } from "react-native";
+import { View, TouchableOpacity, Text, ScrollView } from "react-native";
 import { getMetricMetaInfo, timeToString } from "../utils/helpers";
 import UdacitySlider from "./UdacitySlider";
 import UdacityStepper from "./UdacityStepper";
 import DateHeader from "./DateHeader";
 import { Ionicons } from "@expo/vector-icons";
 import TextButton from "./TextButton";
+import { submitEntry, removeEntry } from "../utils/api";
 
 function SubmitBtn({ onPress }) {
   return (
@@ -58,6 +59,7 @@ export default class AddEntry extends Component {
   };
 
   submit = () => {
+    const key = timeToString();
     const entry = this.state;
 
     //update redux
@@ -72,7 +74,8 @@ export default class AddEntry extends Component {
 
     //navigate to home
 
-    //update DB
+    //update "DB"
+    submitEntry({ entry, key });
 
     //clear local notification
   };
@@ -85,6 +88,7 @@ export default class AddEntry extends Component {
     // Route to Home
 
     // Update "DB"
+    removeEntry(key);
   };
 
   render() {
@@ -102,7 +106,7 @@ export default class AddEntry extends Component {
     }
 
     return (
-      <View>
+      <ScrollView>
         <DateHeader date={new Date().toLocaleDateString()} />
         {Object.keys(metaInfo).map(key => {
           const { getIcon, type, ...rest } = metaInfo[key];
@@ -128,7 +132,7 @@ export default class AddEntry extends Component {
           );
         })}
         <SubmitBtn onPress={this.submit} />
-      </View>
+      </ScrollView>
     );
   }
 }
