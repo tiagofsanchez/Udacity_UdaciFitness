@@ -64,6 +64,7 @@ export default class AddEntry extends Component {
 
     //update redux
 
+    //reset controlled component state
     this.setState(() => ({
       run: 0,
       bike: 0,
@@ -87,7 +88,7 @@ export default class AddEntry extends Component {
 
     // Route to Home
 
-    // Update "DB"
+    // Update "DB" (how will this work?)
     removeEntry(key);
   };
 
