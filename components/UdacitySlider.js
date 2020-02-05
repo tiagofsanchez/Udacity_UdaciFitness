@@ -4,8 +4,6 @@ import { View, Text, Slider } from "react-native";
 const UdacitySlider = props => {
   const { value, max, onChange, step, unit } = props;
 
-  console.log(props);
-
   return (
     <View>
       <Slider

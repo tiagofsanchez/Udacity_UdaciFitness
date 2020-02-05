@@ -77,7 +77,7 @@ export default class AddEntry extends Component {
 
   render() {
     const metaInfo = getMetricMetaInfo();
-
+    console.log(this.state);
     return (
       <View>
         <DateHeader date={new Date().toLocaleDateString()} />
