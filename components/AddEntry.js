@@ -7,6 +7,8 @@ import DateHeader from "./DateHeader";
 import { Ionicons } from "@expo/vector-icons";
 import TextButton from "./TextButton";
 import { submitEntry, removeEntry } from "../utils/api";
+import { addEntry, receiveEntries } from "../actions";
+import { connect } from "react-redux";
 
 function SubmitBtn({ onPress }) {
   return (
@@ -16,7 +18,7 @@ function SubmitBtn({ onPress }) {
   );
 }
 
-export default class AddEntry extends Component {
+class AddEntry extends Component {
   state = {
     run: 0,
     bike: 0,
@@ -63,6 +65,11 @@ export default class AddEntry extends Component {
     const entry = this.state;
 
     //update redux
+    this.props.dispatch(
+      addEntry({
+        [key]: entry
+      })
+    );
 
     //reset controlled component state
     this.setState(() => ({
@@ -85,6 +92,9 @@ export default class AddEntry extends Component {
     const key = timeToString();
 
     // Update Redux
+    this.props.dispatch(addEntry({
+      [key]: "Don't forget to log your data"
+    }))
 
     // Route to Home
 
@@ -137,3 +147,5 @@ export default class AddEntry extends Component {
     );
   }
 }
+
+export default connect()(AddEntry);
