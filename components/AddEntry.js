@@ -123,11 +123,12 @@ class AddEntry extends Component {
     }
 
     return (
-      <ScrollView style={styles.container}>
+      <View style={styles.container}>
         <DateHeader date={new Date().toLocaleDateString()} />
         {Object.keys(metaInfo).map(key => {
           const { getIcon, type, ...rest } = metaInfo[key];
           const value = this.state[key];
+          
           return (
             <View key={key} style={styles.row}>
               {getIcon()}
@@ -149,7 +150,7 @@ class AddEntry extends Component {
           );
         })}
         <SubmitBtn onPress={this.submit} />
-      </ScrollView>
+      </View>
     );
   }
 }
@@ -159,12 +160,13 @@ const styles= StyleSheet.create({
   container: { 
     flex: 1, 
     padding: 10, 
-    backgroundColor: white
+    backgroundColor: white, 
   },
   row: { 
     flexDirection: 'row',
     flex: 1,
-    alignContent: 'center'
+    alignItems: 'center',
+    marginBottom: 30,
   },
   iosSubmitBtn :{
     backgroundColor: purple,
