@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, TouchableOpacity, Text, ScrollView } from "react-native";
+import { View, TouchableOpacity, Text, ScrollView , Platform , StyleSheet} from "react-native";
 import { getMetricMetaInfo, timeToString } from "../utils/helpers";
 import UdacitySlider from "./UdacitySlider";
 import UdacityStepper from "./UdacityStepper";
@@ -9,11 +9,17 @@ import TextButton from "./TextButton";
 import { submitEntry, removeEntry } from "../utils/api";
 import { addEntry, receiveEntries } from "../actions";
 import { connect } from "react-redux";
+import { white , purple } from '../utils/colors'
 
+
+//Created the Submit button here, that will be used by 
+//rendering AddEntry
 function SubmitBtn({ onPress }) {
   return (
-    <TouchableOpacity onPress={onPress}>
-      <Text>SUBMIT</Text>
+    <TouchableOpacity 
+    style={Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn}
+    onPress={onPress}>
+      <Text style={styles.submitBtnText}>SUBMIT</Text>
     </TouchableOpacity>
   );
 }
@@ -108,8 +114,8 @@ class AddEntry extends Component {
 
     if (this.props.alreadyLogged) {
       return (
-        <View>
-          <Ionicons name="ios-happy" size={100} />
+        <View style={styles.center}>
+          <Ionicons name={Platform.OS === 'ios'? "ios-happy" : "md-happy"} size={100} />
           <Text>You already logged your information for today</Text>
           <TextButton onPress={this.reset}>reset</TextButton>
         </View>
@@ -117,13 +123,13 @@ class AddEntry extends Component {
     }
 
     return (
-      <ScrollView>
+      <ScrollView style={styles.container}>
         <DateHeader date={new Date().toLocaleDateString()} />
         {Object.keys(metaInfo).map(key => {
           const { getIcon, type, ...rest } = metaInfo[key];
           const value = this.state[key];
           return (
-            <View key={key}>
+            <View key={key} style={styles.row}>
               {getIcon()}
               {type === "slider" ? (
                 <UdacitySlider
@@ -148,4 +154,50 @@ class AddEntry extends Component {
   }
 }
 
+
+const styles= StyleSheet.create({
+  container: { 
+    flex: 1, 
+    padding: 10, 
+    backgroundColor: white
+  },
+  row: { 
+    flexDirection: 'row',
+    flex: 1,
+    alignContent: 'center'
+  },
+  iosSubmitBtn :{
+    backgroundColor: purple,
+    padding: 10, 
+    borderRadius: 7, 
+    height: 45, 
+    marginRight: 40, 
+    marginLeft: 40, 
+  },
+  androidSubmitBtn :{ 
+    backgroundColor: purple, 
+    padding: 10, 
+    paddingLeft: 30, 
+    paddingRight: 30, 
+    borderRadius: 2,
+    height: 45,  
+    alignSelf: 'flex-end',
+    justifyContent: 'center'
+  },
+  center: { 
+    flex: 1, 
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 30, 
+    marginLeft: 30, 
+  },
+  submitBtnText: { 
+    color: white,
+    fontSize: 22, 
+    textAlign: 'center'
+  }
+})
+
 export default connect()(AddEntry);
+
+

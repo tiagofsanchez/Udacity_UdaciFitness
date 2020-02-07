@@ -7,7 +7,7 @@ const UdacityStepper = props => {
 
   return (
     <View>
-      <View>
+      <View style={{flexDirection:'row'}}>
         <TouchableOpacity onPress={value => onIncrement(value)}>
           <FontAwesome name="plus" size={30} color={"black"} />
         </TouchableOpacity>
