@@ -1,5 +1,11 @@
 import { AsyncStorage } from "react-native";
-import { CALENDAR_STORAGE_KEY } from "./_calendar";
+import { CALENDAR_STORAGE_KEY, formatCalendarResults } from "./_calendar";
+
+
+export function fetchCalendarResult( ) { 
+  return AsyncStorage.getItem(CALENDAR_STORAGE_KEY)
+  .then(formatCalendarResults)
+}
 
 export function submitEntry({ entry, key }) {
   return AsyncStorage.mergeItem(
