@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { fetchCalendarResult } from "../utils/api";
 import { timeToString, getDailyReminderValue } from "../utils/helpers";
 import { receiveEntries, addEntry } from "../actions";
-import UdaciFitnessCalendar from "udacifitness-calendar";
+// import UdaciFitnessCalendar from "udacifitness-calendar";
 
 class History extends Component {
   //gets all the entries and put's them in the store
@@ -47,11 +47,12 @@ class History extends Component {
     const { entries } = this.props;
     return (
       <View>
-        <UdaciFitnessCalendar
+        <Text>HISTORY</Text>
+        {/* <UdaciFitnessCalendar
           items={entries}
           renderItem={this.renderItem}
           renderEmptyDate={this.renderEmptyDate}
-        />
+        /> */}
       </View>
     );
   }
