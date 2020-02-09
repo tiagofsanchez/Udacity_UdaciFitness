@@ -12,7 +12,9 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import History from "./components/History";
 import AddEntry from "./components/AddEntry";
-import { purple } from "./utils/colors";
+import { purple, white } from "./utils/colors";
+
+import { Ionicons, FontAwesome } from "@expo/vector-icons";
 
 function AppStatusBar({ backgroundColor, ...props }) {
   return (
@@ -33,7 +35,38 @@ export default function App() {
       <View style={{ flex: 1 }}>
         <AppStatusBar backgroundColor={purple} barStyle="light-content" />
         <NavigationContainer>
-          <Tabs.Navigator initialRouteName="AddEntry">
+          <Tabs.Navigator
+            initialRouteName="AddEntry"
+            screenOptions={({ route }) => ({
+              tabBarIcon: ({ color, size }) => {
+                let icon;
+                if (route.name === "Add Entry") {
+                  icon = (
+                    <FontAwesome name="plus-square" size={size} color={color} />
+                  );
+                } else if (route.name === "History") {
+                  icon = (
+                    <Ionicons name="ios-bookmarks" size={size} color={color} />
+                  );
+                }
+                return icon;
+              }
+            })}
+            tabBarOptions={{
+              activeTintColor: Platform.OS === "ios" ? purple : white,
+              style: {
+                height: 80,
+                backgroundColor: Platform.OS === "ios" ? white : purple,
+                shadowColor: "rgba(0, 0, 0, 0.24)",
+                shadowOffset: {
+                  width: 0,
+                  height: 3
+                },
+                shadowRadius: 6,
+                shadowOpacity: 1
+              }
+            }}
+          >
             <Tabs.Screen name="Add Entry" component={AddEntry} />
             <Tabs.Screen name="History" component={History} />
           </Tabs.Navigator>

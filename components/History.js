@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { connect } from "react-redux";
 import { fetchCalendarResult } from "../utils/api";
 import { timeToString, getDailyReminderValue } from "../utils/helpers";
@@ -46,7 +46,7 @@ class History extends Component {
   render() {
     const { entries } = this.props;
     return (
-      <View>
+      <View style={styles.container}>
         <Text>HISTORY</Text>
         {/* <UdaciFitnessCalendar
           items={entries}
@@ -63,3 +63,11 @@ function mapStateToProps(entries) {
 }
 
 export default connect(mapStateToProps)(History);
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center"
+  }
+});
