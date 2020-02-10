@@ -13,12 +13,9 @@ const MetricCard = props => {
           <View>{getMetricMetaInfo(metric).getIcon()}</View>
           <View>
             <Text style={{ fontSize: 20 }}>{metric}</Text>
-            <View style={styles.container}>
-              <Text style={{ color: gray }}>{metrics[metric]}</Text>
-              <Text style={{ color: gray }}>
-                {getMetricMetaInfo(metric).unit}
-              </Text>
-            </View>
+            <Text style={{ color: gray }}>
+              {metrics[metric]} {getMetricMetaInfo(metric).unit}{" "}
+            </Text>
           </View>
         </View>
       ))}
