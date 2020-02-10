@@ -1,10 +1,20 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  AsyncStorage,
+  Platform,
+  TouchableOpacity
+} from "react-native";
 import { connect } from "react-redux";
 import { fetchCalendarResult } from "../utils/api";
 import { timeToString, getDailyReminderValue } from "../utils/helpers";
 import { receiveEntries, addEntry } from "../actions";
 import UdaciFitnessCalendar from "udacifitness-calendar";
+import { white } from "../utils/colors";
+import DateHeader from "./DateHeader";
+import MetricCard from "./MetricCard";
 
 class History extends Component {
   //gets all the entries and put's them in the store
@@ -26,19 +36,25 @@ class History extends Component {
 
   //QUESTION: where { today, ... metrics} comes from?
   renderItem = ({ today, ...metrics }, formattedDate, key) => (
-    <View>
+    <View style={styles.item}>
       {today ? (
-        <Text>{JSON.stringify(today)}</Text>
+        <View>
+          <DateHeader date={formattedDate} />
+          <Text style={styles.noDateText}>{today}</Text>
+        </View>
       ) : (
-        <Text>{JSON.stringify(metrics)}</Text>
+        <TouchableOpacity onPress={() => console.log("Pressed")}>
+          <DateHeader date={formattedDate} />
+          <MetricCard metrics={metrics} />
+        </TouchableOpacity>
       )}
     </View>
   );
   renderEmptyDate(formattedDate) {
     return (
-      <View>
-        <Text>{JSON.stringify(this.props)}</Text>
-        <Text>No Data for this day</Text>
+      <View style={styles.item}>
+        <DateHeader date={formattedDate} />
+        <Text style={styles.noDateText}>You didn't log data for this day</Text>
       </View>
     );
   }
@@ -46,6 +62,7 @@ class History extends Component {
   render() {
     const { entries } = this.props;
     console.log(this.props);
+    AsyncStorage.clear();
 
     return (
       <UdaciFitnessCalendar
@@ -64,9 +81,24 @@ function mapStateToProps(entries) {
 export default connect(mapStateToProps)(History);
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center"
+  item: {
+    backgroundColor: white,
+    borderRadius: Platform.OS === "ios" ? 8 : 2,
+    padding: 10,
+    marginLeft: 10,
+    marginRight: 10,
+    marginTop: 17,
+    shadowRadius: 3,
+    shadowOpacity: 0.8,
+    shadowColor: "rgba(0,0,0,0.24)",
+    shadowOffset: {
+      width: 0,
+      height: 3
+    }
+  },
+  noDateText: {
+    fontSize: 20,
+    paddingTop: 20,
+    paddingBottom: 20
   }
 });
