@@ -5,7 +5,6 @@ import { gray } from "../utils/colors";
 
 const MetricCard = props => {
   const { metrics } = props;
-  console.log(metrics);
   return (
     <View style={{ marginTop: 20 }}>
       {Object.keys(metrics).map(metric => (

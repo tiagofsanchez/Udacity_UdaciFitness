@@ -10,7 +10,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import History from "./components/History";
+import HistoryStack from "./components/HistoryStack";
 import AddEntry from "./components/AddEntry";
 import { purple, white } from "./utils/colors";
 
@@ -68,7 +68,7 @@ export default function App() {
             }}
           >
             <Tabs.Screen name="Add Entry" component={AddEntry} />
-            <Tabs.Screen name="History" component={History} />
+            <Tabs.Screen name="History" component={HistoryStack} />
           </Tabs.Navigator>
         </NavigationContainer>
       </View>
