@@ -12,6 +12,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import HistoryStack from "./components/HistoryStack";
 import AddEntry from "./components/AddEntry";
+import Live from "./components/Live";
 import { purple, white } from "./utils/colors";
 
 import { Ionicons, FontAwesome } from "@expo/vector-icons";
@@ -48,6 +49,14 @@ export default function App() {
                   icon = (
                     <Ionicons name="ios-bookmarks" size={size} color={color} />
                   );
+                } else if (route.name === "Live") {
+                  icon = (
+                    <Ionicons
+                      name="ios-speedometer"
+                      size={size}
+                      color={color}
+                    />
+                  );
                 }
                 return icon;
               }
@@ -69,6 +78,7 @@ export default function App() {
           >
             <Tabs.Screen name="Add Entry" component={AddEntry} />
             <Tabs.Screen name="History" component={HistoryStack} />
+            <Tabs.Screen name="Live" component={Live} />
           </Tabs.Navigator>
         </NavigationContainer>
       </View>
