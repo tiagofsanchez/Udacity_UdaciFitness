@@ -4,6 +4,8 @@ import { getMetricMetaInfo } from "../utils/helpers";
 import { gray } from "../utils/colors";
 
 const MetricCard = props => {
+  console.log(props);
+
   const { metrics } = props;
   return (
     <View style={{ marginTop: 20 }}>

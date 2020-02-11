@@ -17,7 +17,19 @@ const HistoryStack = () => {
       }}
     >
       <Stack.Screen name="History" component={History} />
-      <Stack.Screen name="Details" component={EntryDetails} />
+      <Stack.Screen
+        name="Details"
+        component={EntryDetails}
+        options={({ route }) => {
+          const { entryId } = route.params;
+          const year = entryId.slice(0, 4);
+          const month = entryId.slice(5, 7);
+          const day = entryId.slice(8, 10);
+          return {
+            title: `${day}-${month}-${year}`
+          };
+        }}
+      />
     </Stack.Navigator>
   );
 };
